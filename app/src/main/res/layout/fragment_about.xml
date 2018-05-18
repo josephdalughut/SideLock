@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:clickable="true"
+    android:focusable="true" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:elevation="4dp"
+        app:elevation="4dp"
+        android:background="@color/colorPrimary"
+        app:contentInsetStart="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar">
+
+        <ImageButton
+            android:layout_width="@dimen/height_toolbar"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_action_arrow_back"
+            android:foreground="@drawable/selector"
+            android:id="@+id/btnBack"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/text_about"
+            android:textAllCaps="true"
+            style="@style/TextAppearance.AppCompat.Title"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/height_toolbar"
+        android:padding="@dimen/margin_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorTextPrimary"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:text="@string/text_app_info_1"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColorLink="@color/colorAccent"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/margin_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorTextPrimary"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:text="@string/text_app_info_2"
+            android:autoLink="web"
+            android:textColorLink="@color/colorPrimary"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/margin_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorTextPrimary"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:text="@string/text_app_info_4"
+            android:autoLink="web"
+            android:textColorLink="@color/colorPrimary"
+            />
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/barRating"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/margin_page"
+            android:layout_height="wrap_content"
+            android:rating="5"
+            android:layout_gravity="center"
+            android:numStars="5"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/margin_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorTextPrimary"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:text="@string/text_app_info_3"
+            android:autoLink="web"
+            android:textColorLink="@color/colorPrimary"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtVersion"
+        android:layout_marginTop="@dimen/margin_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorTextSecondary"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/margin_page"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

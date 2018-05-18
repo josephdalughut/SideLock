@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SideLock</string>
+    <string name="text_service">Service</string>
+    <string name="text_service_enable_info">Enable service to start</string>
+    <string name="text_enabled">Enabled</string>
+    <string name="text_start_automatically">Start Automatically</string>
+    <string name="text_start_automatically_info">Start SideLock once your device boots up.</string>
+    <string name="text_lock_side">Lock Side</string>
+    <string name="text_right">Right</string>
+    <string name="text_lock_position">Lock Position</string>
+    <string name="text_middle">Middle</string>
+    <string name="text_about">About</string>
+    <string name="text_rate">Rate</string>
+    <string name="text_disabled">Disabled</string>
+    <string name="text_app_info_1">I just needed some way to lock my phone, my power button broke off (darn nexus 5)</string>
+    <string name="text_app_info_2">Developed by <a href="http://josephdalughut.github.io/">Joey Dalu</a></string>
+    <string name="text_app_info_3">You can also check out my other apps on <a href="">Google Play</a>.</string>
+    <string name="text_app_info_4">If you loved this app or found it useful, please rate it:</string>
+    <string name="text_side_lock">Side Lock Button</string>
+    <string name="text_side_lock_info">Floats a handy button when enabled</string>
+    <string name="text_this_is_draggable">This is Draggable</string>
+    <string name="text_this_is_draggable_info">Long-press this to drag and drop anywhere on your screen.</string>
+    <string name="text_version">Version</string>
+</resources>
