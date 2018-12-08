@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.gesture.GestureOverlayView;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
@@ -24,25 +23,19 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 
 import io.github.josephdalughut.sidelock.android.R;
 import io.github.josephdalughut.sidelock.android.cache.SharedPreferencesHelper;
+import io.github.josephdalughut.sidelock.android.notifications.NotificationChannelManager;
 import io.github.josephdalughut.sidelock.android.utils.LockManager;
 
 /**
@@ -107,6 +100,8 @@ public class LockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if(intent == null)
+            return super.onStartCommand(intent, flags, startId);
 
         boolean isUiInForground = intent.getBooleanExtra(ACTION_FOREGROUND, false);
 
@@ -162,7 +157,7 @@ public class LockService extends Service {
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
@@ -462,7 +457,7 @@ public class LockService extends Service {
      * Shows action buttons on the notification trays to control app
      */
     private void showNotification(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationChannelManager.CHANNEL_CONTROLS.channelId);
         builder.setPriority(NotificationCompat.PRIORITY_MIN); //set to lowest priority so it's shown below all other notifications
 
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.lay_service_actions);
@@ -480,7 +475,7 @@ public class LockService extends Service {
         builder.setSmallIcon(R.drawable.ic_stat_cellphone_key);
 
         //issue notification
-        getNotificationMgr(this).notify(NOTIFICATION_ID, builder.build());
+        NotificationChannelManager.CHANNEL_CONTROLS.notify(NOTIFICATION_ID, builder.build());
     }
 
     /**

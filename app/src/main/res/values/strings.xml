@@ -21,4 +21,8 @@
     <string name="text_this_is_draggable">This is Draggable</string>
     <string name="text_this_is_draggable_info">Long-press this to drag and drop anywhere on your screen.</string>
     <string name="text_version">Version</string>
+    <string name="text_back">Back</string>
+    <string name="text_grant">Grant</string>
+    <string name="text_permissions_required">Permissions Required</string>
+    <string name="text_continue">Continue</string>
 </resources>

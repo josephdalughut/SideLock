@@ -1,8 +1,10 @@
 package io.github.josephdalughut.sidelock.android.gui.fragment.main;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -12,6 +14,7 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SwitchCompat;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,7 +29,9 @@ import io.github.josephdalughut.sidelock.android.cache.SharedPreferencesHelper;
 import io.github.josephdalughut.sidelock.android.gui.activity.Activity;
 import io.github.josephdalughut.sidelock.android.gui.fragment.FragmentImpl;
 import io.github.josephdalughut.sidelock.android.service.LockService;
+import io.github.josephdalughut.sidelock.android.utils.Disclosures;
 import io.github.josephdalughut.sidelock.android.utils.LockManager;
+import ru.noties.markwon.Markwon;
 
 /**
  * Main UI shown on the first start of the application.
@@ -118,12 +123,11 @@ public class MainFragment extends FragmentImpl {
         };
         getContext().registerReceiver(broadcastReceiver, new IntentFilter(LockService.ACTION_STOP));
 
-
         layEnabled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!lockManager.isDeviceAdmin()){
-                    lockManager.requestDeviceAdmin(MainFragment.this, REQUEST_CODE_GRANT_ADMIN);
+                    requestDeviceAdmin(REQUEST_CODE_GRANT_ADMIN);
                     return;
                 }
                 if(LockService.isRunning(getContext())){
@@ -132,26 +136,17 @@ public class MainFragment extends FragmentImpl {
                 }else {
                     LockService.start(getContext(), true);
                     onEnabled(true);
-                    showDragDropInfo();
                 }
             }
         });
 
         lockManager = new LockManager(getContext());
 
-//        fabLock.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getContext().sendBroadcast(new Intent(LockService.ACTION_LOCK));
-//                getAppActivity().finish();
-//            }
-//        });
-
         layAuto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!lockManager.isDeviceAdmin()){
-                    lockManager.requestDeviceAdmin(MainFragment.this, REQUEST_CODE_GRANT_ADMIN_AUTO);
+                    requestDeviceAdmin(REQUEST_CODE_GRANT_ADMIN_AUTO);
                     return;
                 }
                 switchAuto.setChecked(!switchAuto.isChecked());
@@ -162,7 +157,7 @@ public class MainFragment extends FragmentImpl {
         switchAuto.setChecked(SharedPreferencesHelper.getInstance(getContext()).getBoolean(SharedPreferencesHelper.KEY_BOOT_ENABLED, false));
 
 
-        switchSideLock.setChecked(SharedPreferencesHelper.getInstance(getContext()).getBoolean(SharedPreferencesHelper.KEY_SIDE_LOCK, false));
+        switchSideLock.setChecked(LockService.canDrawOverlays(getContext()) && SharedPreferencesHelper.getInstance(getContext()).getBoolean(SharedPreferencesHelper.KEY_SIDE_LOCK, false));
         laySideLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,6 +200,11 @@ public class MainFragment extends FragmentImpl {
         SharedPreferencesHelper.getInstance(getContext()).edit().putBoolean(SharedPreferencesHelper.KEY_SIDE_LOCK,
                 switchSideLock.isChecked()).apply();
 
+        // show dragging info
+        if(switchSideLock.isChecked()){
+            showDragDropInfo();
+        }
+
         if(LockService.isRunning(getContext())){
             LockService.stop(getContext()); //stop the service
             LockService.start(getContext(), true); //start the service again to redraw Floating Lock button
@@ -227,7 +227,7 @@ public class MainFragment extends FragmentImpl {
                 .maskColor(Color.parseColor("#dc000000"))
                 .target(fabLock)
                 .lineAnimDuration(400)
-                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .lineAndArcColor(getResources().getColor(R.color.colorAccent))
                 .dismissOnTouch(true)
                 .dismissOnBackPress(true)
                 .enableDismissAfterShown(true)
@@ -256,9 +256,54 @@ public class MainFragment extends FragmentImpl {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void requestScreenOverlay(){
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:" + getContext().getPackageName()));
-        startActivityForResult(intent, REQUEST_CODE_OVERLAY);
+        View customView = LayoutInflater.from(getContext()).inflate(R.layout.lay_alert_textview, null);
+        TextView txtMessage = customView.findViewById(R.id.txtMessage);
+        Markwon.setMarkdown(txtMessage, Disclosures.OVERLAY);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setCancelable(true)
+                .setView(customView)
+                .setTitle(R.string.text_permissions_required)
+                .setPositiveButton(R.string.text_continue, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + getContext().getPackageName()));
+                        startActivityForResult(intent, REQUEST_CODE_OVERLAY);
+                    }
+                }).setNegativeButton(R.string.text_back, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
+
+    private void requestDeviceAdmin(final int requestCode){
+
+        View customView = LayoutInflater.from(getContext()).inflate(R.layout.lay_alert_textview, null);
+        TextView txtMessage = customView.findViewById(R.id.txtMessage);
+        Markwon.setMarkdown(txtMessage, Disclosures.DEVICE_ADMIN);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setCancelable(true)
+                .setView(customView)
+                .setTitle(R.string.text_permissions_required)
+                .setPositiveButton(R.string.text_continue, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        lockManager.requestDeviceAdmin(MainFragment.this, requestCode);
+                    }
+                }).setNegativeButton(R.string.text_back, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
     }
 
     @Override
