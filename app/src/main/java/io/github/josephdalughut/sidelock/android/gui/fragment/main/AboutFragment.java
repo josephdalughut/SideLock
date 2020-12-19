@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v7.widget.AppCompatRatingBar;
+import androidx.appcompat.widget.AppCompatRatingBar;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;

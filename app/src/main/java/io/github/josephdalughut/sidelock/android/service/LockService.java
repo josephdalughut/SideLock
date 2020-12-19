@@ -17,11 +17,11 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -403,7 +403,7 @@ public class LockService extends Service {
     }
 
     /**
-     * @return coordinates where the {@link android.support.design.widget.FloatingActionButton} would be
+     * @return coordinates where the {@link FloatingActionButton} would be
      * laid out on the {@link io.github.josephdalughut.sidelock.android.gui.fragment.main.MainFragment} screen
      */
     public float[] getLockButtonForegroundScreenLocation(){

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:clickable="true"
     android:focusable="true" android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar"
         android:background="@color/colorPrimary"
@@ -31,7 +31,7 @@
             android:src="@drawable/ic_action_more_vert"
             />
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
@@ -78,7 +78,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="@dimen/height_toolbar"
                 android:layout_height="match_parent"
                 android:id="@+id/switchEnabled"
@@ -124,7 +124,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="@dimen/height_toolbar"
                 android:layout_height="match_parent"
                 android:id="@+id/switchAuto"
@@ -176,7 +176,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="@dimen/height_toolbar"
                 android:layout_height="match_parent"
                 android:id="@+id/switchSideLock"
@@ -188,7 +188,7 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:visibility="invisible"
         android:id="@+id/fabLock"
         android:layout_width="wrap_content"
@@ -199,4 +199,4 @@
         android:layout_margin="@dimen/margin_page"
         />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
