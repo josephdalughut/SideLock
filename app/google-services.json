@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175544972378",
+    "project_id": "sidelock-c8361",
+    "storage_bucket": "sidelock-c8361.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175544972378:android:baa7e835d671188e9e1463",
+        "android_client_info": {
+          "package_name": "io.github.josephdalughut.sidelock.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175544972378-7djjvogm4mjrrklcq65cm6v07djfpfm2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.josephdalughut.sidelock.android",
+            "certificate_hash": "f65f16ffced2567ce046c6e2d9ecf8ebb8028dac"
+          }
+        },
+        {
+          "client_id": "175544972378-2133qjur7fhad9acfqpq6jqcgo19rjtm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUiorEkkFGEk-XA65A2YBUw-cy_30iBJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175544972378-2133qjur7fhad9acfqpq6jqcgo19rjtm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

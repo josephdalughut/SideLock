@@ -11,6 +11,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
@@ -71,6 +74,8 @@ public class MainFragment extends FragmentImpl {
 
     @BindView(R.id.laySideLock) public View laySideLock;
     @BindView(R.id.switchSideLock) public SwitchCompat switchSideLock;
+
+    @BindView(R.id.adView) public AdView adView;
 
     //receive actions
     private BroadcastReceiver broadcastReceiver;
@@ -171,6 +176,7 @@ public class MainFragment extends FragmentImpl {
 
 
         refreshServiceEnabled();
+        loadAd();
     }
 
     @Override
@@ -334,4 +340,10 @@ public class MainFragment extends FragmentImpl {
         //tell the lock service we are now in background
         getContext().sendBroadcast(new Intent(LockService.ACTION_BACKGROUND));
     }
+
+    private void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+    }
+
 }

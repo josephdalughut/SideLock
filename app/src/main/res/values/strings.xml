@@ -25,4 +25,5 @@
     <string name="text_grant">Grant</string>
     <string name="text_permissions_required">Permissions Required</string>
     <string name="text_continue">Continue</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
